@@ -1,12 +1,12 @@
 import { ProxyState } from "../AppState.js";
 import Character from "../Models/Character.js";
 // NOTE Api is an instance of Axios, with the baseURL set to the endpoint we are using throughout the app
-import { api } from "./AxiosService.js";
+import { apiCharacter } from "./AxiosService.js";
 
 class CharactersService {
   getCharacters() {
     // NOTE "GET" is the method to retrieve data
-    api
+    apiCharacter
       .get("people")
       .then((res) => {
         ProxyState.next = res.data.next;
@@ -19,7 +19,7 @@ class CharactersService {
 
   next() {
     if (ProxyState.next) {
-      api
+      apiCharacter
         .get(ProxyState.next)
         .then((res) => {
           ProxyState.previous = res.data.previous;
@@ -34,7 +34,7 @@ class CharactersService {
 
   previous() {
     if (ProxyState.previous) {
-      api
+      apiCharacter
         .get(ProxyState.previous)
         .then((res) => {
           ProxyState.previous = res.data.previous;

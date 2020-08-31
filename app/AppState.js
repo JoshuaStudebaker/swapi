@@ -10,8 +10,6 @@ class AppState extends EventEmitter {
   /** @type { Character[] } */
   characters = [];
 
-  nextPlanet = "";
-  previousPlanet = "";
   /** @type { Planet[] } */
   planets = [];
 }

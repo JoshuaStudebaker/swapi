@@ -1,15 +1,15 @@
 import { ProxyState } from "../AppState.js";
 import Planet from "../Models/Planet.js";
 // NOTE Api is an instance of Axios, with the baseURL set to the endpoint we are using throughout the app
-import { api } from "./AxiosService.js";
+import { apiPlanet } from "./AxiosService.js";
 
 class PlanetsService {
   getPlanets() {
     // NOTE "GET" is the method to retrieve data
-    api
+    apiPlanet
       .get("planets")
       .then((res) => {
-        ProxyState.nextPlanet = res.data.nextPlanet;
+        ProxyState.next = res.data.next;
         ProxyState.planets = res.data.results.map((c) => new Planet(c));
       })
       .catch((error) => {
@@ -18,12 +18,12 @@ class PlanetsService {
   }
 
   next() {
-    if (ProxyState.nextPlanet) {
-      api
-        .get(ProxyState.nextPlanet)
+    if (ProxyState.next) {
+      apiPlanet
+        .get(ProxyState.next)
         .then((res) => {
-          ProxyState.previousPlanet = res.data.previousPlanet;
-          ProxyState.nextPlanet = res.data.nextPlanet;
+          ProxyState.previous = res.data.previous;
+          ProxyState.next = res.data.next;
           ProxyState.planets = res.data.results.map((c) => new Planet(c));
         })
         .catch((error) => {
@@ -33,12 +33,12 @@ class PlanetsService {
   }
 
   previous() {
-    if (ProxyState.previousPlanet) {
-      api
-        .get(ProxyState.previousPlanet)
+    if (ProxyState.previous) {
+      apiPlanet
+        .get(ProxyState.previous)
         .then((res) => {
-          ProxyState.previousPlanet = res.data.previousPlanet;
-          ProxyState.nextPlanet = res.data.nextPlanet;
+          ProxyState.previous = res.data.previous;
+          ProxyState.next = res.data.next;
           ProxyState.planets = res.data.results.map((c) => new Planet(c));
         })
         .catch((error) => {
