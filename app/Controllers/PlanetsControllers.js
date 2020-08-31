@@ -12,4 +12,12 @@ export default class PlanetsController {
     // Go get the relevant data
     planetsService.getPlanets();
   }
+
+  next() {
+    planetsService.next();
+  }
+
+  previous() {
+    planetsService.previous();
+  }
 }

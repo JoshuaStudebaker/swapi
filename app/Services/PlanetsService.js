@@ -4,6 +4,14 @@ import Planet from "../Models/Planet.js";
 import { api } from "./AxiosService.js";
 
 class PlanetsService {
+  next() {
+    throw new Error("Method not implemented.");
+  }
+
+  previous() {
+    throw new Error("Method not implemented.");
+  }
+
   getPlanets() {
     // NOTE "GET" is the method to retrieve data
     api
