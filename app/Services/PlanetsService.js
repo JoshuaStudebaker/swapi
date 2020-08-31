@@ -4,25 +4,47 @@ import Planet from "../Models/Planet.js";
 import { api } from "./AxiosService.js";
 
 class PlanetsService {
-  next() {
-    throw new Error("Method not implemented.");
-  }
-
-  previous() {
-    throw new Error("Method not implemented.");
-  }
-
   getPlanets() {
     // NOTE "GET" is the method to retrieve data
     api
       .get("planets")
       .then((res) => {
-        ProxyState.next = res.data.next;
-        ProxyState.characters = res.data.results.map((c) => new Planet(c));
+        ProxyState.nextPlanet = res.data.nextPlanet;
+        ProxyState.planets = res.data.results.map((c) => new Planet(c));
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  next() {
+    if (ProxyState.nextPlanet) {
+      api
+        .get(ProxyState.nextPlanet)
+        .then((res) => {
+          ProxyState.previousPlanet = res.data.previousPlanet;
+          ProxyState.nextPlanet = res.data.nextPlanet;
+          ProxyState.planets = res.data.results.map((c) => new Planet(c));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
+
+  previous() {
+    if (ProxyState.previousPlanet) {
+      api
+        .get(ProxyState.previousPlanet)
+        .then((res) => {
+          ProxyState.previousPlanet = res.data.previousPlanet;
+          ProxyState.nextPlanet = res.data.nextPlanet;
+          ProxyState.planets = res.data.results.map((c) => new Planet(c));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
 }
 

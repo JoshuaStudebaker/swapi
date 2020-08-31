@@ -7,7 +7,7 @@ export default class Planet {
   }
   get Template() {
     return `
-    
+    <p>${this.name}</p>
     `;
   }
 }

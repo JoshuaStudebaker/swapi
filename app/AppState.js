@@ -10,6 +10,8 @@ class AppState extends EventEmitter {
   /** @type { Character[] } */
   characters = [];
 
+  nextPlanet = "";
+  previousPlanet = "";
   /** @type { Planet[] } */
   planets = [];
 }
@@ -22,7 +24,7 @@ export const ProxyState = new Proxy(new AppState(), {
   set(target, prop, value) {
     isValidProp(target, prop);
     target[prop] = value;
-    // calls all the functions that are subcribed/listenting/'on'
+    // calls all the functions that are subscribed/listening/'on'
     target.emit(prop, value);
     return true;
   },
