@@ -1,4 +1,5 @@
 import Character from "./Models/Character.js";
+import Planet from "./Models/Planet.js";
 import { EventEmitter } from "./Utils/EventEmitter.js";
 import { isValidProp } from "./Utils/isValidProp.js";
 
@@ -8,6 +9,9 @@ class AppState extends EventEmitter {
   previous = "";
   /** @type { Character[] } */
   characters = [];
+
+  /** @type { Planet[] } */
+  planets = [];
 }
 
 export const ProxyState = new Proxy(new AppState(), {
